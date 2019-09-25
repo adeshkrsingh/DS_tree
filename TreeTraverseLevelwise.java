@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-class SimpleTree {
+class TreeTraverseLevelwise {
     Node head;
     class Node {
         Node left, right;
@@ -75,9 +75,31 @@ class SimpleTree {
         System.out.println("------- Postorder traversal -------");
         node_traverse_postorder(head);
     }
+    
+    public void level_traverse(int level) {
+        int baseLevel = 0;
+        for(int i=0; i<=level; i++) {
+            level_traverse_node(head, i, baseLevel);  
+            System.out.println();
+        }
+    }
+    public void level_traverse_node(Node node, int level, int baseLevel) {
+        if(node == null) {
+            return;
+        }
+        
+        if(level == baseLevel) {
+            System.out.print(node.data + "\t");
+        }
+        
+        level_traverse_node(node.left, level, baseLevel++);
+        level_traverse_node(node.right, level, baseLevel++);
+        
+        //return;
+    }
 
     public static void main(String[] args) {
-        SimpleTree st = new SimpleTree();
+        TreeTraverseLevelwise st = new TreeTraverseLevelwise();
         st.insert(10);
         st.insert(20);
         st.insert(15);
@@ -85,8 +107,9 @@ class SimpleTree {
         st.insert(22);
         st.insert(19);
 
-        st.traverse_inorder();
-        st.traverse_preorder();
-        st.traverse_postorder();
+        //st.traverse_inorder();
+        //st.traverse_preorder();
+        //st.traverse_postorder();
+        st.level_traverse(2);
     }
 }
